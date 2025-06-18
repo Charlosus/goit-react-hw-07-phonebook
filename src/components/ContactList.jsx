@@ -1,14 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { deleteContact } from '../redux/contactsOperations';
 
 export const ContactList = () => {
-  const contacts = useSelector(state => state.contacts.items);
+  const { items, isLoading, error } = useSelector(state => state.contacts);
+
   const dispatch = useDispatch();
   const [filter, setFilter] = useState('');
 
   const handleFilterChange = ({ target }) => setFilter(target.value);
 
-  const filteredContacts = contacts.filter(contact =>
+  const filteredContacts = items.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
@@ -26,10 +28,12 @@ export const ContactList = () => {
         />
       </label>
       <ul>
-        {filteredContacts.map(contact => (
-          <li key={contact.id}>
-            {contact.name}: {contact.number}{' '}
-            <button onClick={() => handleDelete(contact.id)}>Delete</button>
+        {isLoading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        {filteredContacts.map(item => (
+          <li key={item.id}>
+            {item.name}: {item.number}{' '}
+            <button onClick={() => handleDelete(item.id)}>Delete</button>
           </li>
         ))}
       </ul>

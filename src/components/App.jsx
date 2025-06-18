@@ -6,11 +6,11 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 export const App = () => {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-useEffect(() => {
-  dispatch(fetchContacts());
-}, [dispatch])
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <div>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { addContact } from '../redux/contactsOperations';
 
 export const PhonebookInput = () => {
   const initialState = { name: '', number: '' };
@@ -16,7 +17,7 @@ export const PhonebookInput = () => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    dispatch(addContact(state.name, state.number));
+    dispatch(addContact({ name: state.name, number: state.number }));
     setState(initialState);
   };
   return (
